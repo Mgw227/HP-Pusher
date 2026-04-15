@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP Pusher | Sennco Solutions Inc</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0B1F3A;
+    --navy-light: #1a3560;
+    --red:     #C8102E;
+    --red-hover: #a60d25;
+    --white:   #FFFFFF;
+    --off-white: #F7F7F5;
+    --light-gray: #EFEFED;
+    --border:  #E0DFDC;
+    --text:    #2E2E2E;
+    --muted:   #6B6B6B;
+    --link:    #0B1F3A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ═══════════════════════════════════════
+     ANNOUNCEMENT BAR
+  ═══════════════════════════════════════ */
+  .announce-bar {
+    background: var(--navy);
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+    padding: 9px 1rem;
+    font-size: 12.5px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  .announce-bar strong { color: #fff; font-weight: 700; }
+
+  /* ═══════════════════════════════════════
+     NAVIGATION
+  ═══════════════════════════════════════ */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 200;
+  }
+  .nav-inner {
+    max-width: 1220px; margin: 0 auto;
+    display: flex; align-items: center;
+    padding: 0 2rem; height: 72px;
+    gap: 2.5rem;
+  }
+  .nav-logo img { height: 38px; display: block; }
+  .nav-logo-svg {
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+  }
+  .nav-logo-svg .wordmark {
+    font-size: 19px; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1;
+  }
+  .nav-logo-svg .wordmark span { color: var(--red); }
+  .nav-logo-svg .tagline { font-size: 9px; font-weight: 600; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 2px; }
+
+  .nav-menu { display: flex; align-items: center; gap: 0.25rem; list-style: none; flex: 1; }
+  .nav-menu > li { position: relative; }
+  .nav-menu > li > a {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 13px; font-weight: 600; color: var(--text);
+    padding: 8px 14px; text-decoration: none;
+    border-radius: 4px; transition: background 0.15s, color 0.15s;
+  }
+  .nav-menu > li > a:hover { background: var(--off-white); color: var(--navy); text-decoration: none; }
+  .nav-menu .chevron { font-size: 9px; opacity: 0.5; }
+  .dropdown {
+    display: none; position: absolute; top: calc(100% + 2px); left: 0;
+    background: white; border: 1px solid var(--border); border-radius: 6px;
+    padding: 0.5rem 0; min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  .nav-menu > li:hover .dropdown { display: block; }
+  .dropdown a { display: block; padding: 9px 18px; font-size: 13px; font-weight: 500; color: var(--text); }
+  .dropdown a:hover { background: var(--off-white); color: var(--navy); text-decoration: none; }
+  .nav-actions { display: flex; align-items: center; gap: 0.75rem; margin-left: auto; }
+  .btn-nav-contact {
+    font-size: 12.5px; font-weight: 700; color: var(--muted);
+    padding: 8px 14px; text-decoration: none; transition: color 0.15s;
+  }
+  .btn-nav-contact:hover { color: var(--navy); text-decoration: none; }
+  .btn-nav-shop {
+    background: var(--red); color: white;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.03em;
+    padding: 9px 20px; border-radius: 3px; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-nav-shop:hover { background: var(--red-hover); text-decoration: none; }
+
+  /* ═══════════════════════════════════════
+     PAGE WRAPPER
+  ═══════════════════════════════════════ */
+  .page-wrap { max-width: 1220px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ═══════════════════════════════════════
+     BREADCRUMB
+  ═══════════════════════════════════════ */
+  .breadcrumb {
+    padding: 16px 0 0;
+    font-size: 12.5px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .breadcrumb a { color: var(--red); font-weight: 600; font-size: 12.5px; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { opacity: 0.4; }
+
+  /* ═══════════════════════════════════════
+     HERO / INTRO
+  ═══════════════════════════════════════ */
+  .product-intro {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+    padding: 2.5rem 0 4rem;
+  }
+  .intro-left {}
+  .intro-eyebrow {
+    font-size: 12px; font-weight: 600; color: var(--red);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 0.75rem; font-style: italic;
+  }
+  .intro-left h1 {
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800;
+    color: var(--navy); line-height: 1.1; margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+  .intro-left h1 .tm { font-size: 0.55em; vertical-align: super; font-weight: 400; color: var(--muted); }
+  .intro-left p { font-size: 15px; line-height: 1.75; color: var(--muted); margin-bottom: 1.25rem; }
+  .btn-quote {
+    display: inline-block; background: var(--red); color: white;
+    font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 13px 30px; border-radius: 3px; text-decoration: none;
+    transition: background 0.15s; margin-top: 0.5rem;
+  }
+  .btn-quote:hover { background: var(--red-hover); text-decoration: none; }
+
+  /* Product visual */
+  .intro-right { display: flex; flex-direction: column; gap: 1rem; }
+  .product-hero-img {
+    background: var(--off-white); border: 1px solid var(--border);
+    border-radius: 4px; aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .product-hero-img svg { width: 90%; max-width: 400px; }
+  .variant-thumb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .variant-thumb {
+    background: var(--off-white); border: 2px solid transparent;
+    border-radius: 4px; padding: 1rem; cursor: pointer;
+    transition: border-color 0.2s; text-align: center;
+  }
+  .variant-thumb.active { border-color: var(--red); }
+  .variant-thumb:hover { border-color: var(--navy); }
+  .variant-thumb .vt-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy); margin-top: 6px; }
+  .variant-thumb .vt-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+  /* ═══════════════════════════════════════
+     3-COLUMN FEATURE HIGHLIGHTS
+  ═══════════════════════════════════════ */
+  .feature-highlights {
+    background: var(--navy);
+    padding: 3.5rem 0;
+  }
+  .feature-highlights .page-wrap {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: rgba(255,255,255,0.08);
+  }
+  .highlight-item {
+    background: var(--navy); padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .highlight-item .icon-wrap {
+    width: 56px; height: 56px; margin: 0 auto 1.25rem;
+    background: rgba(255,255,255,0.07); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .highlight-item .icon-wrap svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .highlight-item h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 0.6rem; }
+  .highlight-item p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
+  /* ═══════════════════════════════════════
+     FEATURES & BENEFITS
+  ═══════════════════════════════════════ */
+  .features-section {
+    padding: 5rem 0;
+  }
+  .features-section .inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--red); margin-bottom: 0.75rem;
+  }
+  .section-heading {
+    font-size: clamp(1.5rem, 2.5vw, 2.1rem); font-weight: 800;
+    color: var(--navy); line-height: 1.15; margin-bottom: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+  .features-section p { font-size: 14.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 0.875rem;
+    font-size: 14px; color: var(--text); line-height: 1.55;
+  }
+  .feature-list li::before {
+    content: '';
+    display: block; flex-shrink: 0;
+    width: 18px; height: 18px; margin-top: 1px;
+    background: var(--red); border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    background-size: 11px; background-repeat: no-repeat; background-position: center;
+  }
+
+  /* Right side diagram */
+  .features-diagram {
+    background: var(--off-white); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2.5rem 2rem;
+  }
+  .features-diagram h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--navy); margin-bottom: 1.75rem; }
+  .spec-rows { display: flex; flex-direction: column; }
+  .spec-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.875rem 0; border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-row .sk { color: var(--muted); font-weight: 500; }
+  .spec-row .sv { font-weight: 700; color: var(--navy); text-align: right; }
+
+  /* ═══════════════════════════════════════
+     VARIANT SECTIONS  (like Apple sub-sections on HDLD)
+  ═══════════════════════════════════════ */
+  .variant-section {
+    padding: 4.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .variant-section.alt { background: var(--off-white); }
+  .variant-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .variant-inner.reverse { direction: rtl; }
+  .variant-inner.reverse > * { direction: ltr; }
+  .variant-content h2 { font-size: 1.7rem; font-weight: 800; color: var(--navy); margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .variant-content p { font-size: 14.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1.25rem; }
+  .variant-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .variant-content ul li { display: flex; gap: 0.75rem; font-size: 13.5px; color: var(--text); align-items: flex-start; }
+  .variant-content ul li::before {
+    content: ''; display: block; flex-shrink: 0;
+    width: 16px; height: 16px; margin-top: 2px;
+    background: rgba(200,16,46,0.1); border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C8102E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    background-size: 9px; background-repeat: no-repeat; background-position: center;
+  }
+  .variant-badge {
+    display: inline-block; background: var(--red); color: white;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 2px; margin-bottom: 1rem;
+  }
+  .variant-img {
+    background: var(--light-gray); border: 1px solid var(--border);
+    border-radius: 4px; aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ═══════════════════════════════════════
+     HOW IT WORKS
+  ═══════════════════════════════════════ */
+  .how-section { padding: 5rem 0; background: var(--navy); }
+  .how-section .page-wrap { max-width: 1220px; }
+  .how-section .section-heading { color: white; }
+  .how-section .section-eyebrow { color: rgba(255,255,255,0.5); }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: rgba(255,255,255,0.1);
+    margin-top: 3rem;
+  }
+  .step-item {
+    background: var(--navy); padding: 2.5rem 2rem;
+  }
+  .step-num {
+    font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.1);
+    line-height: 1; margin-bottom: 1rem; letter-spacing: -0.04em;
+  }
+  .step-title { font-size: 14px; font-weight: 700; color: white; margin-bottom: 0.6rem; }
+  .step-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* ═══════════════════════════════════════
+     COMPATIBLE CATEGORIES
+  ═══════════════════════════════════════ */
+  .categories-section { padding: 5rem 0; }
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem; margin-top: 3rem;
+  }
+  .cat-card {
+    background: var(--off-white); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1.75rem 1.5rem; text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cat-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .cat-card .cat-icon {
+    width: 48px; height: 48px; margin: 0 auto 0.875rem;
+    background: rgba(200,16,46,0.08); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cat-card .cat-icon svg { width: 22px; height: 22px; stroke: var(--red); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .cat-card .cat-name { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .cat-card .cat-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ═══════════════════════════════════════
+     QUOTE FORM
+  ═══════════════════════════════════════ */
+  .quote-section {
+    padding: 5rem 0; background: var(--off-white);
+    border-top: 1px solid var(--border);
+  }
+  .quote-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .quote-left h2 { font-size: 1.9rem; font-weight: 800; color: var(--navy); margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .quote-left p { font-size: 14.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+  .contact-info { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 1.5rem; }
+  .contact-info .ci { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .contact-info .ci svg { width: 18px; height: 18px; stroke: var(--red); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+  .contact-info .ci span { font-size: 13.5px; color: var(--text); }
+  .contact-info .ci span strong { display: block; font-weight: 700; color: var(--navy); font-size: 13px; }
+
+  form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  form .form-group { display: flex; flex-direction: column; gap: 5px; }
+  form .form-group.full { grid-column: 1 / -1; }
+  form label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy); }
+  form input, form textarea, form select {
+    border: 1px solid var(--border); background: white; border-radius: 3px;
+    padding: 10px 14px; font-family: 'Montserrat', sans-serif;
+    font-size: 13.5px; color: var(--text); outline: none;
+    transition: border-color 0.15s;
+  }
+  form input:focus, form textarea:focus, form select:focus { border-color: var(--navy); }
+  form textarea { resize: vertical; min-height: 100px; }
+  form select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; appearance: none; padding-right: 36px; }
+  .btn-submit {
+    background: var(--red); color: white; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 14px 32px; border-radius: 3px; margin-top: 0.5rem;
+    transition: background 0.15s;
+  }
+  .btn-submit:hover { background: var(--red-hover); }
+
+  /* ═══════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════ */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.7);
+    padding: 4rem 0 0;
+  }
+  .footer-inner {
+    max-width: 1220px; margin: 0 auto; padding: 0 2rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand .wordmark { font-size: 20px; font-weight: 800; color: white; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .footer-brand .wordmark span { color: #e05060; }
+  .footer-brand p { font-size: 12.5px; line-height: 1.65; margin-bottom: 1rem; }
+  .footer-brand .linkedin {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6);
+    text-decoration: none;
+  }
+  .footer-brand .linkedin:hover { color: white; text-decoration: none; }
+  .footer-col h4 { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.45); margin-bottom: 1.1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul a { font-size: 13px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.15s; }
+  .footer-col ul a:hover { color: white; text-decoration: none; }
+  .footer-bottom {
+    max-width: 1220px; margin: 0 auto; padding: 1.25rem 2rem;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom .copy { font-size: 12px; color: rgba(255,255,255,0.35); }
+  .footer-bottom .foot-links { display: flex; gap: 1.5rem; }
+  .footer-bottom .foot-links a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-bottom .foot-links a:hover { color: rgba(255,255,255,0.75); text-decoration: none; }
+  .contact-block { margin-top: 1.25rem; }
+  .contact-block p { font-size: 12.5px; margin-bottom: 0.4rem; }
+  .contact-block strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .product-intro, .features-section .inner, .variant-inner,
+    .quote-inner, .how-section .inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .variant-inner.reverse { direction: ltr; }
+    .feature-highlights .page-wrap, .steps-grid, .cat-grid { grid-template-columns: 1fr 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .nav-menu { display: none; }
+    .page-wrap { padding: 0 1.25rem; }
+    .product-intro { padding: 2rem 0 3rem; }
+    .feature-highlights, .features-section, .variant-section,
+    .how-section, .categories-section, .quote-section { padding: 3rem 0; }
+  }
+  @media (max-width: 560px) {
+    .feature-highlights .page-wrap, .steps-grid, .cat-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  Celebrating <strong>25-years</strong> of serving retailers with <strong>exceptional service</strong> and <strong>proven innovation</strong>.
+</div>
+
+<!-- HEADER / NAV -->
+<header>
+  <div class="nav-inner">
+    <a href="https://sennco.com" class="nav-logo-svg">
+      <div>
+        <div class="wordmark">Sennco<span>.</span></div>
+        <div class="tagline">Solutions Inc.</div>
+      </div>
+    </a>
+
+    <ul class="nav-menu">
+      <li>
+        <a href="#">Products <span class="chevron">▾</span></a>
+        <div class="dropdown">
+          <a href="https://sennco.com/product/heavy-duty-lockdown/">Heavy Duty Lockdown</a>
+          <a href="https://sennco.com/product/swing-gate-series/">Swing Gate Series</a>
+          <a href="https://sennco.com/product/the-stage-bar/">The Stage</a>
+          <a href="https://sennco.com/product/cordwinders-cables-ends/">Cordwinders</a>
+          <a href="https://sennco.com/product/split-s-hooks/">Split S Hooks</a>
+          <a href="https://sennco.com/product/hp-pusher/" style="color:var(--red);font-weight:700;">HP Pusher</a>
+          <a href="https://sennco.com/product/dummydome/">Dummy Dome</a>
+          <a href="https://sennco.com/product/vizitech/">ViziTECH</a>
+          <a href="https://sennco.com/product/brictech/">BricTECH</a>
+        </div>
+      </li>
+      <li>
+        <a href="#">Company <span class="chevron">▾</span></a>
+        <div class="dropdown">
+          <a href="https://sennco.com/about/">About Us</a>
+          <a href="https://sennco.com/careers/">Join Our Team</a>
+        </div>
+      </li>
+      <li>
+        <a href="#">Resources <span class="chevron">▾</span></a>
+        <div class="dropdown">
+          <a href="https://sennco.com/catalog/">Sennco Catalog</a>
+          <a href="https://sennco.com/testimonials/">Testimonials &amp; Case Studies</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="https://sennco.com/contact-us/" class="btn-nav-contact">Contact</a>
+      <a href="https://shopsennco.com" class="btn-nav-shop">Shop Sennco</a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE CONTENT -->
+<div class="page-wrap">
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="https://sennco.com">← go back</a>
+    <span class="sep">/</span>
+    <span>Products</span>
+    <span class="sep">/</span>
+    <span>HP Pusher</span>
+  </div>
+
+  <!-- HERO INTRO -->
+  <div class="product-intro">
+    <div class="intro-left">
+      <div class="intro-eyebrow">Improving Shelf Execution and Sales Productivity</div>
+      <h1>HP Pusher<span class="tm">™</span></h1>
+      <p>
+        Introducing the revolutionary HP (High Performance) Pusher — a game-changer for retail product merchandising.
+        Unlike any other pusher on the market, the HP Pusher delivers consistent, controlled forward-facing for every product on your shelf, from the lightest single-serve can to the heaviest multi-pack case.
+      </p>
+      <p>
+        This heavy-duty pusher is remarkably adaptable, capable of smoothly and consistently facing both lightweight items and products weighing up to 40 lbs* — all at the same controlled speed. Available in Single Motor and Dual Motor configurations to match your category's exact demands.
+      </p>
+      <a href="#quote" class="btn-quote">Request A Quote</a>
+    </div>
+
+    <div class="intro-right">
+      <div class="product-hero-img">
+        <!-- SVG Product Diagram -->
+        <svg viewBox="0 0 420 310" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shelf back wall -->
+          <rect x="30" y="20" width="10" height="268" fill="#D5D3CF" rx="2"/>
+          <!-- Shelf floor -->
+          <rect x="30" y="286" width="360" height="10" fill="#C8C6C1" rx="2"/>
+          <!-- Shelf top rail -->
+          <rect x="30" y="20" width="360" height="6" fill="#C8C6C1" rx="2"/>
+
+          <!-- Channel dividers -->
+          <rect x="110" y="30" width="5" height="256" fill="#D5D3CF"/>
+          <rect x="220" y="30" width="5" height="256" fill="#D5D3CF"/>
+          <rect x="330" y="30" width="5" height="256" fill="#D5D3CF"/>
+
+          <!-- CHANNEL 1 — Single cans (blue) -->
+          <rect x="40" y="186" width="30" height="96" rx="3" fill="#2563EB" opacity="0.9"/>
+          <rect x="40" y="166" width="30" height="18" rx="2" fill="#1D4ED8"/>
+          <rect x="72" y="196" width="30" height="86" rx="3" fill="#2563EB" opacity="0.85"/>
+          <rect x="72" y="176" width="30" height="18" rx="2" fill="#1D4ED8"/>
+
+          <!-- CHANNEL 2 — Single cans (teal) -->
+          <rect x="120" y="176" width="30" height="106" rx="3" fill="#0D9488" opacity="0.9"/>
+          <rect x="120" y="156" width="30" height="18" rx="2" fill="#0F766E"/>
+          <rect x="153" y="196" width="30" height="86" rx="3" fill="#0D9488" opacity="0.85"/>
+          <rect x="153" y="176" width="30" height="18" rx="2" fill="#0F766E"/>
+          <rect x="186" y="216" width="25" height="66" rx="3" fill="#0D9488" opacity="0.8"/>
+
+          <!-- CHANNEL 3 — Case packs (amber/warm) — showing dual motor -->
+          <rect x="228" y="136" width="92" height="148" rx="3" fill="#92400E" opacity="0.7"/>
+          <rect x="230" y="138" width="88" height="144" rx="2" fill="#D97706" opacity="0.9"/>
+          <rect x="235" y="145" width="78" height="20" rx="2" fill="#F59E0B" opacity="0.6"/>
+          <text x="274" y="215" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.7)" font-weight="600">4-PACK</text>
+
+          <!-- Pusher paddles -->
+          <!-- SM paddle 1 -->
+          <rect x="38" y="228" width="66" height="8" rx="2" fill="#C8102E" opacity="0.85"/>
+          <!-- SM paddle 2 -->
+          <rect x="118" y="218" width="98" height="8" rx="2" fill="#C8102E" opacity="0.85"/>
+          <!-- DM paddle -->
+          <rect x="226" y="278" width="98" height="8" rx="2" fill="#C8102E" opacity="0.85"/>
+
+          <!-- Spring coils SM -->
+          <path d="M40 238 Q50 233 60 238 Q70 243 80 238 Q90 233 100 238 Q106 241 110 238" stroke="#C8102E" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="3,2"/>
+          <!-- Spring coil SM2 -->
+          <path d="M120 228 Q132 223 144 228 Q156 233 168 228 Q180 223 192 228 Q204 233 215 228 Q218 230 220 228" stroke="#C8102E" stroke-width="2" fill="none" opacity="0.5" stroke-dasharray="3,2"/>
+
+          <!-- Labels -->
+          <rect x="32" y="158" width="76" height="18" rx="2" fill="rgba(200,16,46,0.1)" stroke="#C8102E" stroke-width="1"/>
+          <text x="70" y="170" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8.5" fill="#C8102E" font-weight="700" letter-spacing="0.8">SINGLE MOTOR</text>
+
+          <rect x="118" y="138" width="98" height="18" rx="2" fill="rgba(200,16,46,0.1)" stroke="#C8102E" stroke-width="1"/>
+          <text x="167" y="150" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8.5" fill="#C8102E" font-weight="700" letter-spacing="0.8">SINGLE MOTOR</text>
+
+          <rect x="226" y="108" width="98" height="18" rx="2" fill="rgba(11,31,58,0.08)" stroke="#0B1F3A" stroke-width="1"/>
+          <text x="275" y="120" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8.5" fill="#0B1F3A" font-weight="700" letter-spacing="0.8">DUAL MOTOR</text>
+
+          <!-- Arrow — push direction -->
+          <defs>
+            <marker id="arrowRed" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+              <path d="M0,0 L7,3.5 L0,7 Z" fill="#C8102E"/>
+            </marker>
+          </defs>
+          <line x1="275" y1="130" x2="275" y2="95" stroke="#C8102E" stroke-width="1.5" marker-end="url(#arrowRed)" stroke-dasharray="4,3"/>
+          <text x="283" y="115" font-family="Montserrat,sans-serif" font-size="8" fill="#C8102E" font-weight="700" letter-spacing="0.5">PUSH</text>
+
+          <!-- depth callout -->
+          <line x1="335" y1="30" x2="335" y2="286" stroke="#94A3B8" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="330" y1="30" x2="340" y2="30" stroke="#94A3B8" stroke-width="1.5"/>
+          <line x1="330" y1="286" x2="340" y2="286" stroke="#94A3B8" stroke-width="1.5"/>
+          <text x="356" y="162" font-family="Montserrat,sans-serif" font-size="9.5" fill="#64748B" font-weight="600">22"</text>
+          <text x="350" y="174" font-family="Montserrat,sans-serif" font-size="8.5" fill="#94A3B8">depth</text>
+        </svg>
+      </div>
+
+      <!-- Variant selector -->
+      <div class="variant-thumb-row">
+        <div class="variant-thumb active" onclick="selectVariant(this,'SM')">
+          <div class="vt-label">Single Motor (SM)</div>
+          <div class="vt-sub">Single-serve cans &amp; standard SKUs</div>
+        </div>
+        <div class="variant-thumb" onclick="selectVariant(this,'DM')">
+          <div class="vt-label">Dual Motor (DM)</div>
+          <div class="vt-sub">Case packs &amp; heavy multi-packs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-wrap -->
+
+<!-- 3-COLUMN FEATURE HIGHLIGHTS -->
+<div class="feature-highlights">
+  <div class="page-wrap">
+    <div class="highlight-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <h3>Heavy-Duty Spring Mechanism</h3>
+      <p>Constant-force spring system applies uniform forward pressure across the full 22" shelf depth — no slowing, no stalling, no manual recovery required.</p>
+    </div>
+    <div class="highlight-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+      </div>
+      <h3>Adjustable Channel System</h3>
+      <p>Configurable channels adapt to any SKU width — single cans, multi-packs, and mixed beverage formats all supported on the same shelf run.</p>
+    </div>
+    <div class="highlight-item">
+      <div class="icon-wrap">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3>Up to 40 lbs — Uniform Speed</h3>
+      <p>Handles lightweight single cans and heavy case packs at the same controlled speed. No configuration changes needed when rotating SKUs.</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+  <!-- FEATURES & BENEFITS -->
+  <div class="features-section" id="features">
+    <div class="inner">
+      <div>
+        <div class="section-eyebrow">Features &amp; Benefits</div>
+        <h2 class="section-heading">Designed for High-Velocity<br>Beverage Aisles</h2>
+        <p>
+          The HP Pusher addresses the root cause of shelf execution breakdown in high-velocity categories. As customers pull product from deep refrigerated shelves, inventory migrates to the back — leaving empty facings that are invisible to store teams and distributors. The HP Pusher eliminates that problem entirely.
+        </p>
+        <ul class="feature-list">
+          <li>Constant-force heavy-duty spring mechanism for consistent shelf presence</li>
+          <li>Adjustable channel width to fit any can, bottle, or pack size</li>
+          <li>Compatible with standard 22" deep refrigerated cooler shelving</li>
+          <li>Integrated plastic dividers prevent cardboard pack edges from catching</li>
+          <li>Dual motor variant handles products up to 40 lbs at uniform push speed</li>
+          <li>No shelf modifications required — installs on existing gondola and cooler fixtures</li>
+          <li>Simplifies distributor stocking — channels provide clear product slots for one-can-at-a-time restocking</li>
+          <li>Reduces time searching for empty facings — field-reported 30+ minute labor savings per shift</li>
+          <li>Improves facing consistency and product availability throughout the day</li>
+          <li>Minimal training required — repeatable installation playbook for multi-store rollout</li>
+        </ul>
+      </div>
+
+      <div class="features-diagram">
+        <h4>Technical Specifications</h4>
+        <div class="spec-rows">
+          <div class="spec-row"><span class="sk">Drive System Options</span><span class="sv">Single Motor / Dual Motor</span></div>
+          <div class="spec-row"><span class="sk">Max Push Weight</span><span class="sv">Up to 40 lbs*</span></div>
+          <div class="spec-row"><span class="sk">Compatible Shelf Depth</span><span class="sv">22 inches</span></div>
+          <div class="spec-row"><span class="sk">Channel Configuration</span><span class="sv">Adjustable</span></div>
+          <div class="spec-row"><span class="sk">Anti-Snag Dividers</span><span class="sv">Integrated plastic</span></div>
+          <div class="spec-row"><span class="sk">Shelf Modifications Required</span><span class="sv">None</span></div>
+          <div class="spec-row"><span class="sk">SKUs per Pusher (typical)</span><span class="sv">7–8 per channel</span></div>
+          <div class="spec-row"><span class="sk">Compatible Fixtures</span><span class="sv">Standard gondola &amp; cooler</span></div>
+          <div class="spec-row"><span class="sk">Best For</span><span class="sv">Beverage, RTD, CPG</span></div>
+        </div>
+        <p style="font-size:11px;color:var(--muted);margin-top:1.25rem;line-height:1.5;">*Dual Motor variant. Weight capacity dependent on spring tension configuration and shelf depth. Contact Sennco for custom specifications.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-wrap -->
+
+<!-- VARIANT SECTION 1: SINGLE MOTOR -->
+<div class="variant-section">
+  <div class="page-wrap">
+    <div class="variant-inner">
+      <div class="variant-content">
+        <span class="variant-badge">Single Motor</span>
+        <h2>HP Pusher SM</h2>
+        <p>
+          The Single Motor HP Pusher is purpose-built for single-serve cans and standard-weight SKUs in high-velocity refrigerated sections. Its precision spring system maintains constant forward pressure across the full shelf depth, eliminating the gaps and scattered product that require manual recovery throughout the day.
+        </p>
+        <p>Ideal for ready-to-drink beverages, energy drinks, sparkling water, and standard beverage cans in both door-cooler and gondola shelf formats.</p>
+        <ul>
+          <li>Single-serve cans and standard-weight beverage SKUs</li>
+          <li>High-velocity RTD, seltzer, and energy drink sections</li>
+          <li>Configurable channel width for mixed SKU sets</li>
+          <li>Compatible with existing cooler shelving — no modifications</li>
+          <li>7–8 SKUs per pusher channel at 22" depth</li>
+          <li>Supports 938–1,072 single cans per section (per Jewel-Osco pilot data)</li>
+        </ul>
+      </div>
+      <div class="variant-img">
+        <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Simplified SM diagram -->
+          <rect x="20" y="20" width="320" height="220" rx="4" fill="#F7F7F5" stroke="#E0DFDC" stroke-width="1"/>
+          <rect x="20" y="228" width="320" height="8" rx="2" fill="#C8C6C1"/>
+          <!-- Channel dividers -->
+          <rect x="100" y="30" width="4" height="198" fill="#D5D3CF"/>
+          <rect x="200" y="30" width="4" height="198" fill="#D5D3CF"/>
+          <rect x="300" y="30" width="4" height="198" fill="#D5D3CF"/>
+          <!-- Cans - SM style, all forward (after state) -->
+          <rect x="26" y="148" width="28" height="78" rx="3" fill="#2563EB" opacity="0.9"/>
+          <rect x="56" y="148" width="28" height="78" rx="3" fill="#2563EB" opacity="0.85"/>
+          <rect x="106" y="148" width="28" height="78" rx="3" fill="#0D9488" opacity="0.9"/>
+          <rect x="136" y="148" width="28" height="78" rx="3" fill="#0D9488" opacity="0.85"/>
+          <rect x="166" y="148" width="28" height="78" rx="3" fill="#0D9488" opacity="0.8"/>
+          <rect x="206" y="148" width="28" height="78" rx="3" fill="#7C3AED" opacity="0.9"/>
+          <rect x="236" y="148" width="28" height="78" rx="3" fill="#7C3AED" opacity="0.85"/>
+          <rect x="266" y="148" width="28" height="78" rx="3" fill="#7C3AED" opacity="0.8"/>
+          <!-- SM paddle bars -->
+          <rect x="22" y="236" width="74" height="7" rx="2" fill="#C8102E" opacity="0.8"/>
+          <rect x="102" y="236" width="94" height="7" rx="2" fill="#C8102E" opacity="0.8"/>
+          <rect x="202" y="236" width="94" height="7" rx="2" fill="#C8102E" opacity="0.8"/>
+          <!-- Label -->
+          <text x="180" y="16" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" fill="#C8102E" font-weight="700" letter-spacing="1.5">SINGLE MOTOR — SM</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT SECTION 2: DUAL MOTOR -->
+<div class="variant-section alt">
+  <div class="page-wrap">
+    <div class="variant-inner reverse">
+      <div class="variant-content">
+        <span class="variant-badge">Dual Motor</span>
+        <h2>HP Pusher DM</h2>
+        <p>
+          The Dual Motor HP Pusher is engineered for case packs, 4-packs, and heavy multi-unit SKUs in deep refrigerated sections. Two independent spring motors work in tandem to deliver consistent forward pressure on products up to 40 lbs — with zero speed differential between heavy and light items.
+        </p>
+        <p>Ideal for beer and seltzer case packs, multi-pack RTD beverages, and any cooler section carrying heavier product configurations.</p>
+        <ul>
+          <li>Products up to 40 lbs pushed at uniform, controlled speed</li>
+          <li>Dual-motor system eliminates stalling on heavy SKUs</li>
+          <li>Case packs, 4-packs, 6-packs, and variety packs</li>
+          <li>Adjustable channel width fits standard and wide pack formats</li>
+          <li>3–4 packs per pusher channel at 22" depth</li>
+          <li>Supports 225–300 packs per section (per Jewel-Osco pilot data)</li>
+        </ul>
+      </div>
+      <div class="variant-img">
+        <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="320" height="220" rx="4" fill="#F7F7F5" stroke="#E0DFDC" stroke-width="1"/>
+          <rect x="20" y="228" width="320" height="8" rx="2" fill="#C8C6C1"/>
+          <!-- Channel dividers -->
+          <rect x="180" y="30" width="4" height="198" fill="#D5D3CF"/>
+          <!-- Case packs — DM style (larger, heavier) -->
+          <!-- Pack 1 -->
+          <rect x="26" y="108" width="72" height="118" rx="4" fill="#92400E" opacity="0.6"/>
+          <rect x="28" y="110" width="68" height="114" rx="3" fill="#D97706" opacity="0.88"/>
+          <rect x="34" y="120" width="56" height="22" rx="2" fill="#F59E0B" opacity="0.5"/>
+          <text x="62" y="170" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" font-weight="700">4-PACK</text>
+          <!-- Pack 2 -->
+          <rect x="104" y="128" width="72" height="98" rx="4" fill="#92400E" opacity="0.6"/>
+          <rect x="106" y="130" width="68" height="94" rx="3" fill="#D97706" opacity="0.88"/>
+          <text x="140" y="182" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" font-weight="700">4-PACK</text>
+          <!-- Pack 3 -->
+          <rect x="190" y="108" width="72" height="118" rx="4" fill="#065F46" opacity="0.6"/>
+          <rect x="192" y="110" width="68" height="114" rx="3" fill="#059669" opacity="0.88"/>
+          <text x="226" y="170" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" font-weight="700">CASE</text>
+          <!-- Pack 4 -->
+          <rect x="268" y="128" width="66" height="98" rx="4" fill="#065F46" opacity="0.6"/>
+          <rect x="270" y="130" width="62" height="94" rx="3" fill="#059669" opacity="0.88"/>
+          <text x="301" y="182" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="10" fill="rgba(255,255,255,0.8)" font-weight="700">CASE</text>
+          <!-- DM paddle bars (double) -->
+          <rect x="22" y="234" width="152" height="5" rx="2" fill="#C8102E" opacity="0.85"/>
+          <rect x="22" y="241" width="152" height="4" rx="2" fill="#C8102E" opacity="0.5"/>
+          <rect x="186" y="234" width="150" height="5" rx="2" fill="#C8102E" opacity="0.85"/>
+          <rect x="186" y="241" width="150" height="4" rx="2" fill="#C8102E" opacity="0.5"/>
+          <text x="180" y="16" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="9" fill="#0B1F3A" font-weight="700" letter-spacing="1.5">DUAL MOTOR — DM</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="page-wrap">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-heading" style="max-width:560px;">Four steps to a shelf that works for itself.</h2>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-title">Install on Existing Shelving</div>
+        <div class="step-desc">The HP Pusher mounts directly to standard cooler and gondola shelving with no tools required and no shelf modifications needed.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-title">Configure Your Channels</div>
+        <div class="step-desc">Adjust channel widths to match your specific SKUs — cans, bottles, or packs. Anti-snag dividers prevent cardboard from catching during stocking.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-title">Load and Stock Normally</div>
+        <div class="step-desc">Distributors and store teams stock product into the channels as normal. The spring mechanism automatically positions every item at the front.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-title">Product Always Faces Forward</div>
+        <div class="step-desc">As customers remove items, the spring pushes remaining product forward — maintaining full, consistent facings automatically throughout the day.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPATIBLE CATEGORIES -->
+<div class="categories-section">
+  <div class="page-wrap">
+    <div class="section-eyebrow">Compatible Categories</div>
+    <h2 class="section-heading">Built for beverage. Ready for more.</h2>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 2h8l2 4H6L8 2z"/><rect x="6" y="6" width="12" height="16" rx="2"/></svg>
+        </div>
+        <div class="cat-name">Single-Serve Cans</div>
+        <div class="cat-desc">RTD beverages, energy drinks, seltzers, beer, hard cider</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        </div>
+        <div class="cat-name">Case Packs &amp; 4-Packs</div>
+        <div class="cat-desc">Beer and seltzer multi-packs, variety cases, bundled RTDs</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0018 0V5"/></svg>
+        </div>
+        <div class="cat-name">Bottled Beverages</div>
+        <div class="cat-desc">Sparkling water, juice, sports drinks, kombucha, and cold brew</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        </div>
+        <div class="cat-name">CPG &amp; Packaged Goods</div>
+        <div class="cat-desc">Snacks, shelf-stable food items, and other refrigerated CPG categories</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE FORM -->
+<div class="quote-section" id="quote">
+  <div class="page-wrap">
+    <div class="quote-inner">
+      <div class="quote-left">
+        <div class="section-eyebrow">Get in Touch</div>
+        <h2>Request A Quote</h2>
+        <p>
+          If you have questions about the HP Pusher or would like to discuss a custom configuration for your store format, fill out the form and a Sennco representative will be in touch.
+        </p>
+        <div class="contact-info">
+          <div class="ci">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.5 19.79 19.79 0 011 .5h-.75A2 2 0 000 2.18v.01A19.88 19.88 0 0016.72 22a2 2 0 002.18-2v-3.08z" transform="translate(1,1)"/></svg>
+            <span>
+              <strong>Toll-Free</strong>
+              866-736-6261
+            </span>
+          </div>
+          <div class="ci">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>
+              <strong>Hours</strong>
+              8:30am – 5:00pm CST/CDT
+            </span>
+          </div>
+          <div class="ci">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>
+              <strong>Address</strong>
+              14407 Coil Plus Drive, Unit A<br>Plainfield, IL 60544
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name *</label>
+              <input type="text" id="fname" required placeholder="Jane">
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name *</label>
+              <input type="text" id="lname" required placeholder="Smith">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" required placeholder="jane@yourcompany.com">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="(555) 000-0000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="company">Company / Store Chain *</label>
+              <input type="text" id="company" required placeholder="Acme Grocery Co.">
+            </div>
+            <div class="form-group">
+              <label for="variant">Product Interest</label>
+              <select id="variant">
+                <option value="">-- Select variant --</option>
+                <option>HP Pusher SM (Single Motor)</option>
+                <option>HP Pusher DM (Dual Motor)</option>
+                <option>Both / Not sure yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full">
+              <label for="message">Tell us about your shelving needs</label>
+              <textarea id="message" placeholder="Number of locations, shelf footage, product categories, current challenges..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit" id="submit-btn">Submit Request</button>
+          <p id="form-msg" style="display:none;margin-top:0.75rem;font-size:13px;color:#059669;font-weight:600;">✓ Thank you! A Sennco representative will be in touch shortly.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="wordmark">Sennco<span>.</span></div>
+      <p>Sennco Solutions Inc., now part of InVue and the ASSA ABLOY Group — a leader in retail security and technology solutions for 25 years.</p>
+      <a href="https://www.linkedin.com/company/sennco-solutions-inc." class="linkedin" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        Follow us on LinkedIn
+      </a>
+      <div class="contact-block" style="margin-top:1.5rem;">
+        <p><strong>866-736-6261</strong></p>
+        <p>8:30am – 5pm CST/CDT</p>
+        <p style="margin-top:0.4rem;font-size:12px;">14407 Coil Plus Drive, Unit A<br>Plainfield, IL 60544</p>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://sennco.com/careers/">Careers at Sennco</a></li>
+        <li><a href="https://sennco.com/patents/">Patents</a></li>
+        <li><a href="https://sennco.com/catalog/">Product Catalog</a></li>
+        <li><a href="https://sennco.com/testimonials/">Case Studies</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Solutions</h4>
+      <ul>
+        <li><a href="https://sennco.com/solution/software/">Software</a></li>
+        <li><a href="https://sennco.com/solution/hardware/">Hardware</a></li>
+        <li><a href="https://sennco.com/solution/integrated/">Integrated</a></li>
+      </ul>
+      <h4 style="margin-top:1.5rem;">Products</h4>
+      <ul>
+        <li><a href="https://sennco.com/product/heavy-duty-lockdown/">Heavy Duty Lockdown</a></li>
+        <li><a href="https://sennco.com/product/swing-gate-series/">Swing Gate Series</a></li>
+        <li><a href="https://sennco.com/product/tether-lockbox/">Tether Lockbox</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="https://sennco.com/product/the-stage-bar/">The Stage</a></li>
+        <li><a href="https://sennco.com/product/vizitech/">ViziTECH</a></li>
+        <li><a href="https://sennco.com/product/cordwinders-cables-ends/">Cordwinders</a></li>
+        <li><a href="https://sennco.com/product/dummydome/">Dummy Domes</a></li>
+        <li><a href="https://sennco.com/product/split-s-hooks/">Split S Hooks</a></li>
+        <li><a href="https://sennco.com/product/hp-pusher/" style="color:rgba(255,255,255,0.9);font-weight:700;">HP Pusher</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="copy">Copyright 2026 © Sennco Solutions Inc · An <a href="https://invue.com/" style="color:rgba(255,255,255,0.5);">InVue Company</a> | Part of <a href="https://www.assaabloy.com/" style="color:rgba(255,255,255,0.5);">ASSA ABLOY Group</a></div>
+    <div class="foot-links">
+      <a href="https://sennco.com/privacy-policy/">Privacy Policy</a>
+      <a href="#">Disclaimer</a>
+      <a href="#">Terms of Use</a>
+      <a href="https://sennco.com/policies/accessibility/">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Variant selector
+function selectVariant(el, v) {
+  document.querySelectorAll('.variant-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-msg');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.style.display = 'none';
+    msg.style.display = 'block';
+  }, 900);
+}
+</script>
+
+</body>
+</html>
